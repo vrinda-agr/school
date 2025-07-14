@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchoolSecure - Digital Security & Privacy Protection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom scrollbar for navigation */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out;
+        }
+        .animate-bounce {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Utility for showing/hiding content based on active tab */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-100 font-sans text-gray-800">
+
+    <header class="bg-white shadow-sm border-b sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center">
+                    <i data-lucide="shield" class="w-9 h-9 text-blue-600 mr-3"></i>
+                    <h1 class="text-2xl font-extrabold text-gray-900">SchoolSecure</h1>
+                    <span class="ml-3 text-base text-gray-500 hidden md:block">Digital Security & Privacy Protection for Schools</span>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="#" class="flex items-center text-sm text-gray-600 hover:text-blue-600 transition-colors">
+                        <i data-lucide="clock" class="w-4 h-4 mr-1.5"></i>
+                        24/7 Support
+                    </a>
+                    <a href="mailto:help@schoolsecure.org" class="flex items-center text-sm text-gray-600 hover:text-blue-600 transition-colors">
+                        <i data-lucide="mail" class="w-4 h-4 mr-1.5"></i>
+                        help@schoolsecure.org
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="bg-white border-b shadow-sm sticky top-20 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto custom-scrollbar">
+            <div class="flex space-x-6 lg:space-x-8 py-2" id="navigationTabs">
+                </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div id="dashboard-content" class="tab-content active animate-fadeIn">
+            </div>
+        <div id="request-content" class="tab-content animate-fadeIn">
+            </div>
+        <div id="resources-content" class="tab-content animate-fadeIn">
+            </div>
+        <div id="live-chat-content" class="tab-content animate-fadeIn">
+            </div>
+        <div id="impact-map-content" class="tab-content animate-fadeIn">
+            </div>
+        <div id="student-portal-content" class="tab-content animate-fadeIn">
+            </div>
+        <div id="cases-content" class="tab-content animate-fadeIn">
+            </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex flex-col md:flex-row justify-between items-center border-b border-gray-700 pb-8 mb-8">
+                <div class="text-3xl font-extrabold text-blue-400 mb-4 md:mb-0 flex items-center">
+                    <i data-lucide="shield" class="w-8 h-8 mr-3"></i> SchoolSecure
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Contact Us</a>
+                </div>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; <span id="currentYear"></span> SchoolSecure. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        let activeTab = 'dashboard';
+
+        let helpRequests = [
+            { id: 1, school: 'Lincoln Elementary', issue: 'Data breach suspected', priority: 'high', status: 'pending', date: '2025-01-15', type: 'security', contactName: 'Jane Doe', email: 'jane.doe@lincoln.edu', phone: '555-123-4567' },
+            { id: 2, school: 'Madison High School', issue: 'Privacy policy review', priority: 'medium', status: 'in-progress', date: '2025-01-12', type: 'counseling', contactName: 'John Smith', email: 'john.smith@madison.edu', phone: '555-987-6543' }
+        ];
+
+        let appointments = [
+            { id: 1, school: 'Roosevelt Middle School', date: '2025-01-18', time: '10:00 AM', type: 'Security Assessment', expert: 'Alex (Security Expert)' },
+            { id: 2, school: 'Washington Elementary', date: '2025-01-20', time: '2:00 PM', type: 'Privacy Training', expert: 'Sarah (Counselor)' }
+        ];
+
+        let newRequest = {
+            school: '', contactName: '', email: '', phone: '', issue: '', priority: 'medium', type: 'security'
+        };
+
+        let chatMessages = [
+            { id: 1, sender: 'bot', text: 'Hello! How can we help protect your school today?' }
+        ];
+        let chatInput = '';
+
+        let aiChatMessages = [
+            { id: 1, sender: 'ai', text: 'Hi! I\'m your AI Safety Assistant. Ask me anything about staying safe online!' }
+        ];
+        let aiInput = '';
+
+        let studentProgress = {
+            safety: 0,
+            bullying: 0,
+            passwords: 0
+        };
+
+        const educationalResources = [
+            { title: 'Student Data Privacy Basics', type: 'video', duration: '12 min', category: 'Privacy', description: 'Understand the fundamentals of protecting student data online.' },
+            { title: 'Cybersecurity Threat Assessment', type: 'guide', pages: '8 pages', category: 'Security', description: 'A comprehensive guide to identify and mitigate cybersecurity threats in schools.' },
+            { title: 'Digital Rights for Students', type: 'interactive', duration: '15 min', category: 'Rights', description: 'An engaging module teaching students about their rights in the digital world.' },
+            { title: 'Password Security Training', type: 'video', duration: '8 min', category: 'Security', description: 'Learn best practices for creating strong and secure passwords.' },
+            { title: 'Recognizing Online Scams', type: 'guide', pages: '5 pages', category: 'Awareness', description: 'Tips and tricks to help students and staff identify common online scams.' },
+            { title: 'Responsible Social Media Use', type: 'interactive', duration: '10 min', category: 'Behavior', description: 'Interactive scenarios to promote responsible and positive social media habits.' }
+        ];
+
+        const tabs = [
+            { id: 'dashboard', label: 'Dashboard', icon: 'users' },
+            { id: 'request', label: 'Request Help', icon: 'phone' },
+            { id: 'resources', label: 'Resources', icon: 'book-open' },
+            { id: 'live-chat', label: 'Live Chat', icon: 'message-square' },
+            { id: 'impact-map', label: 'Impact Map', icon: 'map-pin' },
+            { id: 'student-portal', label: 'Student Portal', icon: 'graduation-cap' },
+            { id: 'cases', label: 'Cases', icon: 'file-text' }
+        ];
+
+        function updateUI() {
+            // Render navigation tabs
+            const navTabsContainer = document.getElementById('navigationTabs');
+            navTabsContainer.innerHTML = tabs.map(tab => `
+                <button
+                    id="tab-${tab.id}"
+                    onclick="setActiveTab('${tab.id}')"
+                    class="flex items-center px-4 py-3 text-base font-medium border-b-3 transition-all duration-200 whitespace-nowrap ${
+                        activeTab === tab.id
+                            ? 'border-blue-600 text-blue-700 bg-blue-50 rounded-t-lg'
+                            : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                    }"
+                >
+                    <i data-lucide="${tab.icon}" class="w-5 h-5 mr-2"></i>
+                    ${tab.label}
+                </button>
+            `).join('');
+            lucide.createIcons(); // Re-render Lucide icons after HTML update
+
+            // Show/hide content sections
+            document.querySelectorAll('.tab-content').forEach(content => {
+                if (content.id === `${activeTab}-content`) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+
+            // Render content for each tab
+            renderDashboard();
+            renderRequestHelp();
+            renderResources();
+            renderLiveChat();
+            renderImpactMap();
+            renderStudentPortal();
+            renderCases();
+
+            lucide.createIcons(); // Re-render Lucide icons after each tab's content update
+        }
+
+        function setActiveTab(tabId) {
+            activeTab = tabId;
+            updateUI();
+        }
+
+        function renderDashboard() {
+            const dashboardContent = document.getElementById('dashboard-content');
+            const activeCases = helpRequests.filter(r => r.status !== 'completed').length;
+
+            dashboardContent.innerHTML = `
+                <div class="space-y-8 animate-fadeIn">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-light opacity-90">Active Cases</p>
+                                    <p class="text-4xl font-extrabold mt-1">${activeCases}</p>
+                                </div>
+                                <i data-lucide="shield" class="w-12 h-12 opacity-70"></i>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-green-500 to-green-600 text-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-light opacity-90">Upcoming Visits</p>
+                                    <p class="text-4xl font-extrabold mt-1">${appointments.length}</p>
+                                </div>
+                                <i data-lucide="calendar" class="w-12 h-12 opacity-70"></i>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-light opacity-90">Schools Served</p>
+                                    <p class="text-4xl font-extrabold mt-1">127+</p>
+                                </div>
+                                <i data-lucide="users" class="w-12 h-12 opacity-70"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
+                            <h3 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+                                <i data-lucide="alert-triangle" class="w-6 h-6 mr-3 text-orange-500"></i>
+                                Recent Help Requests
+                            </h3>
+                            <div class="space-y-4">
+                                ${helpRequests.slice(0, 3).map(request => `
+                                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-100 hover:bg-gray-100 transition-colors">
+                                        <div>
+                                            <p class="font-semibold text-lg text-gray-800">${request.school}</p>
+                                            <p class="text-sm text-gray-600 flex items-center mt-1">
+                                                <i data-lucide="file-text" class="w-4 h-4 mr-1 text-gray-500"></i>
+                                                ${request.issue}
+                                            </p>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="px-3 py-1 rounded-full text-xs font-semibold ${
+                                                request.priority === 'high' ? 'bg-red-100 text-red-800' :
+                                                request.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
+                                                'bg-green-100 text-green-800'
+                                            }">
+                                                ${request.priority.toUpperCase()}
+                                            </span>
+                                            <p class="text-xs text-gray-500 mt-1">${request.date}</p>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <button onclick="setActiveTab('cases')" class="mt-6 w-full text-center text-blue-600 font-semibold py-3 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors">
+                                View All Cases
+                            </button>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
+                            <h3 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+                                <i data-lucide="calendar" class="w-6 h-6 mr-3 text-blue-500"></i>
+                                Upcoming Appointments
+                            </h3>
+                            <div class="space-y-4">
+                                ${appointments.map(appointment => `
+                                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-100 hover:bg-gray-100 transition-colors">
+                                        <div>
+                                            <p class="font-semibold text-lg text-gray-800">${appointment.school}</p>
+                                            <p class="text-sm text-gray-600 flex items-center mt-1">
+                                                <i data-lucide="clock" class="w-4 h-4 mr-1 text-gray-500"></i>
+                                                ${appointment.type}
+                                            </p>
+                                            <p class="text-xs text-blue-600 mt-1 flex items-center">
+                                                <i data-lucide="user" class="w-3 h-3 mr-1"></i>
+                                                ${appointment.expert}
+                                            </p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-sm font-semibold text-gray-700">${appointment.date}</p>
+                                            <p class="text-xs text-gray-500">${appointment.time}</p>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <button class="mt-6 w-full text-center text-green-600 font-semibold py-3 border border-green-600 rounded-lg hover:bg-green-50 transition-colors">
+                                Schedule New Visit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderRequestHelp() {
+            const requestContent = document.getElementById('request-content');
+            requestContent.innerHTML = `
+                <div class="max-w-3xl mx-auto animate-fadeIn">
+                    <div class="bg-white p-10 rounded-xl shadow-lg border border-gray-200">
+                        <h2 class="text-3xl font-bold mb-8 text-gray-800 flex items-center justify-center">
+                            <i data-lucide="phone" class="w-8 h-8 mr-3 text-blue-600"></i>
+                            Request Expert Help
+                        </h2>
+
+                        <form id="requestHelpForm" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="schoolName" class="block text-sm font-medium text-gray-700 mb-2">School Name</label>
+                                    <input
+                                        type="text"
+                                        id="schoolName"
+                                        value="${newRequest.school}"
+                                        oninput="newRequest.school = this.value"
+                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        placeholder="e.g., Northwood High School"
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label for="contactName" class="block text-sm font-medium text-gray-700 mb-2">Contact Person</label>
+                                    <input
+                                        type="text"
+                                        id="contactName"
+                                        value="${newRequest.contactName}"
+                                        oninput="newRequest.contactName = this.value"
+                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        placeholder="e.g., Principal Jane Doe"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        value="${newRequest.email}"
+                                        oninput="newRequest.email = this.value"
+                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        placeholder="e.g., jane.doe@school.edu"
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        value="${newRequest.phone}"
+                                        oninput="newRequest.phone = this.value"
+                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        placeholder="e.g., (123) 456-7890"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="requestType" class="block text-sm font-medium text-gray-700 mb-2">Service Needed</label>
+                                    <select
+                                        id="requestType"
+                                        onchange="newRequest.type = this.value"
+                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
+                                    >
+                                        <option value="security" ${newRequest.type === 'security' ? 'selected' : ''}>Security Assessment</option>
+                                        <option value="counseling" ${newRequest.type === 'counseling' ? 'selected' : ''}>Privacy Counseling</option>
+                                        <option value="training" ${newRequest.type === 'training' ? 'selected' : ''}>Training & Education</option>
+                                        <option value="incident" ${newRequest.type === 'incident' ? 'selected' : ''}>Incident Response</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="priority" class="block text-sm font-medium text-gray-700 mb-2">Priority Level</label>
+                                    <select
+                                        id="priority"
+                                        onchange="newRequest.priority = this.value"
+                                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
+                                    >
+                                        <option value="low" ${newRequest.priority === 'low' ? 'selected' : ''}>Low</option>
+                                        <option value="medium" ${newRequest.priority === 'medium' ? 'selected' : ''}>Medium</option>
+                                        <option value="high" ${newRequest.priority === 'high' ? 'selected' : ''}>High</option>
+                                        <option value="urgent" ${newRequest.priority === 'urgent' ? 'selected' : ''}>Urgent</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="issueDescription" class="block text-sm font-medium text-gray-700 mb-2">Describe Your Needs</label>
+                                <textarea
+                                    id="issueDescription"
+                                    oninput="newRequest.issue = this.value"
+                                    rows="5"
+                                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                    placeholder="Please provide a detailed description of your security concerns, privacy issues, or training requirements..."
+                                    required
+                                >${newRequest.issue}</textarea>
+                            </div>
+
+                            <button
+                                type="submit"
+                                class="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors shadow-lg flex items-center justify-center"
+                            >
+                                <i data-lucide="check-circle" class="w-6 h-6 mr-3"></i>
+                                Submit Request
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            `;
+            document.getElementById('requestHelpForm').onsubmit = handleSubmitRequest;
+        }
+
+        function handleSubmitRequest(e) {
+            e.preventDefault();
+            const request = {
+                id: helpRequests.length + 1,
+                school: newRequest.school,
+                issue: newRequest.issue,
+                priority: newRequest.priority,
+                status: 'pending',
+                date: new Date().toISOString().split('T')[0],
+                type: newRequest.type,
+                contactName: newRequest.contactName,
+                email: newRequest.email,
+                phone: newRequest.phone
+            };
+            helpRequests.push(request);
+            newRequest = { school: '', contactName: '', email: '', phone: '', issue: '', priority: 'medium', type: 'security' };
+            alert('Your request has been submitted successfully!');
+            setActiveTab('dashboard');
+        }
+
+        function renderResources() {
+            const resourcesContent = document.getElementById('resources-content');
+            resourcesContent.innerHTML = `
+                <div class="space-y-8 animate-fadeIn">
+                    <div class="flex flex-col sm:flex-row items-center justify-between mb-6">
+                        <h2 class="text-3xl font-bold text-gray-800 flex items-center mb-4 sm:mb-0">
+                            <i data-lucide="book-open" class="w-8 h-8 mr-3 text-green-600"></i>
+                            Educational Resources
+                        </h2>
+                        <div class="flex flex-wrap gap-3">
+                            <button class="px-5 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors text-sm font-medium shadow-md">
+                                All Resources
+                            </button>
+                            <button class="px-5 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300 transition-colors text-sm font-medium">
+                                Security
+                            </button>
+                            <button class="px-5 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300 transition-colors text-sm font-medium">
+                                Privacy
+                            </button>
+                            <button class="px-5 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300 transition-colors text-sm font-medium">
+                                Rights
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        ${educationalResources.map((resource, index) => `
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 flex flex-col hover:shadow-lg transition-shadow duration-300">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="flex items-center text-blue-600">
+                                        ${resource.type === 'video' ? '<i data-lucide="play" class="w-7 h-7 text-red-500 mr-2"></i>' : ''}
+                                        ${resource.type === 'guide' ? '<i data-lucide="file-text" class="w-7 h-7 text-blue-500 mr-2"></i>' : ''}
+                                        ${resource.type === 'interactive' ? '<i data-lucide="users" class="w-7 h-7 text-purple-500 mr-2"></i>' : ''}
+                                        <span class="text-xl font-semibold text-gray-800">${resource.title}</span>
+                                    </div>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
+                                        ${resource.category}
+                                    </span>
+                                </div>
+
+                                <p class="text-sm text-gray-600 mb-4 flex-grow">${resource.description}</p>
+                                <p class="text-xs text-gray-500 mb-5">
+                                    ${resource.type === 'video' ? `Duration: ${resource.duration}` : ''}
+                                    ${resource.type === 'guide' ? `Pages: ${resource.pages}` : ''}
+                                    ${resource.type === 'interactive' ? `Avg. Time: ${resource.duration}` : ''}
+                                </p>
+
+                                <div class="flex space-x-3 mt-auto">
+                                    <button class="flex-1 bg-blue-600 text-white py-2.5 px-4 rounded-lg hover:bg-blue-700 transition-colors text-base font-medium flex items-center justify-center">
+                                        <i data-lucide="play" class="w-4 h-4 mr-2"></i> View
+                                    </button>
+                                    <button class="p-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center">
+                                        <i data-lucide="download" class="w-5 h-5 text-gray-600"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="bg-gradient-to-r from-indigo-600 to-purple-700 p-10 rounded-xl text-white shadow-lg text-center">
+                        <h3 class="text-3xl font-bold mb-4">Unlock Your School's Full Potential</h3>
+                        <p class="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
+                            Beyond our standard resources, we offer custom-tailored training programs and security solutions
+                            designed specifically for your school's unique environment and challenges.
+                        </p>
+                        <button class="bg-white text-indigo-700 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors shadow-xl transform hover:scale-105">
+                            <i data-lucide="award" class="inline-block w-6 h-6 mr-2 -mt-1"></i>
+                            Request Custom Solutions
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderLiveChat() {
+            const liveChatContent = document.getElementById('live-chat-content');
+            liveChatContent.innerHTML = `
+                <div class="max-w-xl mx-auto animate-fadeIn">
+                    <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+                        <div class="bg-blue-600 text-white p-5 flex justify-between items-center rounded-t-xl">
+                            <h3 class="text-xl font-semibold flex items-center">
+                                <i data-lucide="message-square" class="w-6 h-6 mr-2"></i>
+                                Live Support Chat
+                            </h3>
+                            <span class="bg-green-400 px-3 py-1 rounded-full text-sm font-medium flex items-center">
+                                <span class="w-2.5 h-2.5 bg-white rounded-full mr-2 animate-pulse"></span> Online
+                            </span>
+                        </div>
+                        <div class="h-96 overflow-y-auto p-5 space-y-4 bg-gray-50" id="chatMessagesContainer">
+                            ${chatMessages.map((msg) => `
+                                <div class="flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}">
+                                    <div class="p-3 rounded-lg max-w-[75%] ${
+                                        msg.sender === 'user'
+                                            ? 'bg-blue-500 text-white rounded-br-none'
+                                            : 'bg-gray-200 text-gray-800 rounded-bl-none'
+                                    }">
+                                        ${msg.text}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="p-5 border-t border-gray-200">
+                            <div class="flex">
+                                <input
+                                    type="text"
+                                    id="liveChatInput"
+                                    class="flex-grow p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Type your message..."
+                                    value="${chatInput}"
+                                    oninput="chatInput = this.value"
+                                />
+                                <button
+                                    id="sendLiveChatMessageBtn"
+                                    class="bg-blue-600 text-white px-6 py-3 rounded-r-lg hover:bg-blue-700 transition-colors flex items-center"
+                                >
+                                    <i data-lucide="mail" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            const liveChatInput = document.getElementById('liveChatInput');
+            const sendLiveChatMessageBtn = document.getElementById('sendLiveChatMessageBtn');
+            liveChatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') handleSendMessage();
+            });
+            sendLiveChatMessageBtn.addEventListener('click', handleSendMessage);
+            // Scroll to bottom of chat
+            const chatMessagesContainer = document.getElementById('chatMessagesContainer');
+            chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+        }
+
+        function handleSendMessage() {
+            if (chatInput.trim()) {
+                const newUserMessage = { id: chatMessages.length + 1, sender: 'user', text: chatInput.trim() };
+                chatMessages.push(newUserMessage);
+                chatInput = '';
+                updateUI(); // Update UI to show new message
+
+                setTimeout(() => {
+                    const botResponse = {
+                        id: chatMessages.length + 2,
+                        sender: 'bot',
+                        text: 'Thank you for your message. Our support team will review your query and get back to you shortly. For urgent matters, please use the "Request Help" form.'
+                    };
+                    chatMessages.push(botResponse);
+                    updateUI(); // Update UI to show bot response
+                }, 1500);
+            }
+        }
+
+        function renderImpactMap() {
+            const impactMapContent = document.getElementById('impact-map-content');
+            impactMapContent.innerHTML = `
+                <div class="space-y-8 animate-fadeIn">
+                    <h2 class="text-3xl font-bold text-gray-800 text-center flex items-center justify-center">
+                        <i data-lucide="map-pin" class="w-8 h-8 mr-3 text-red-600"></i>
+                        Our Global Impact
+                    </h2>
+                    <p class="text-center text-lg text-gray-600 mb-8">
+                        See how SchoolSecure is making a difference in schools worldwide.
+                    </p>
+
+                    <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+                        <div class="relative h-[500px] bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center text-gray-500 text-lg font-medium">
+                            <p class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl text-gray-400 opacity-60">
+                                Interactive Map Placeholder
+                            </p>
+                            <div class="absolute group" style="top: 25%; left: 30%;">
+                                <i data-lucide="map-pin" class="w-8 h-8 text-red-500 cursor-pointer animate-bounce"></i>
+                                <div class="absolute -top-16 -left-16 bg-white p-3 rounded-lg shadow-md text-sm whitespace-nowrap hidden group-hover:block transition-all duration-200">
+                                    <strong>Lincoln Elementary</strong><br/>
+                                    Data Privacy Training<br/>
+                                    ⭐⭐⭐⭐⭐
+                                </div>
+                            </div>
+                            <div class="absolute group" style="top: 65%; left: 70%;">
+                                <i data-lucide="map-pin" class="w-8 h-8 text-red-500 cursor-pointer animate-bounce delay-100"></i>
+                                <div class="absolute -top-16 -left-16 bg-white p-3 rounded-lg shadow-md text-sm whitespace-nowrap hidden group-hover:block transition-all duration-200">
+                                    <strong>Roosevelt High</strong><br/>
+                                    Cyberbullying Prevention<br/>
+                                    ⭐⭐⭐⭐⭐
+                                </div>
+                            </div>
+                            <div class="absolute group" style="top: 45%; left: 50%;">
+                                <i data-lucide="map-pin" class="w-8 h-8 text-red-500 cursor-pointer animate-bounce delay-200"></i>
+                                <div class="absolute -top-16 -left-16 bg-white p-3 rounded-lg shadow-md text-sm whitespace-nowrap hidden group-hover:block transition-all duration-200">
+                                    <strong>Madison Middle</strong><br/>
+                                    Security Assessment<br/>
+                                    ⭐⭐⭐⭐⭐
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 bg-blue-50 p-8 gap-6 text-center rounded-b-xl">
+                            <div class="p-4 bg-white rounded-lg shadow-sm">
+                                <h3 class="text-4xl font-extrabold text-blue-700">147+</h3>
+                                <p class="text-gray-600 mt-2">Schools Protected</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-lg shadow-sm">
+                                <h3 class="text-4xl font-extrabold text-green-700">12,000+</h3>
+                                <p class="text-gray-600 mt-2">Students Trained</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-lg shadow-sm">
+                                <h3 class="text-4xl font-extrabold text-purple-700">98%</h3>
+                                <p class="text-gray-600 mt-2">Satisfaction Rate</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderStudentPortal() {
+            const studentPortalContent = document.getElementById('student-portal-content');
+            studentPortalContent.innerHTML = `
+                <div class="space-y-8 animate-fadeIn">
+                    <h2 class="text-3xl font-bold text-gray-800 text-center flex items-center justify-center">
+                        <i data-lucide="graduation-cap" class="w-8 h-8 mr-3 text-indigo-600"></i>
+                        Student Learning Portal
+                    </h2>
+                    <p class="text-center text-lg text-gray-600 mb-8">
+                        Interactive modules to empower students with essential digital safety skills.
+                    </p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2 space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                ${Object.keys(studentProgress).map((key) => `
+                                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-300">
+                                        <div class="flex items-center justify-between mb-4">
+                                            <div class="flex items-center">
+                                                ${key === 'safety' ? '<i data-lucide="shield" class="w-8 h-8 text-blue-500 mr-3"></i>' : ''}
+                                                ${key === 'bullying' ? '<i data-lucide="alert-triangle" class="w-8 h-8 text-orange-500 mr-3"></i>' : ''}
+                                                ${key === 'passwords' ? '<i data-lucide="lock" class="w-8 h-8 text-green-500 mr-3"></i>' : ''}
+                                                <h3 class="text-xl font-semibold text-gray-800 capitalize">${key.replace(/([A-Z])/g, ' $1')}</h3>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm text-gray-600 mb-4">
+                                            ${key === 'safety' ? 'Fundamental concepts for staying safe and responsible online.' : ''}
+                                            ${key === 'bullying' ? 'Learn to identify, prevent, and report cyberbullying effectively.' : ''}
+                                            ${key === 'passwords' ? 'Master the art of creating and managing strong, secure passwords.' : ''}
+                                        </p>
+                                        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: ${studentProgress[key]}%;"></div>
+                                        </div>
+                                        <p class="text-right text-sm font-medium text-gray-600 mb-4">${studentProgress[key]}% Completed</p>
+                                        <button
+                                            onclick="handleStartTraining('${key}')"
+                                            class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center"
+                                        >
+                                            <i data-lucide="play" class="w-5 h-5 mr-2"></i> Start Module
+                                        </button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 h-fit">
+                            <h3 class="text-xl font-semibold mb-4 text-gray-800 flex items-center">
+                                <i data-lucide="bot" class="w-7 h-7 mr-2 text-purple-600"></i>
+                                AI Safety Assistant
+                            </h3>
+                            <p class="text-sm text-gray-600 mb-4">Your intelligent guide for quick answers on online safety.</p>
+                            <div class="space-y-3 h-64 overflow-y-auto pr-2" id="aiChatMessagesContainer">
+                                ${aiChatMessages.map((msg) => `
+                                    <div class="flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}">
+                                        <div class="p-3 rounded-lg max-w-[90%] ${
+                                            msg.sender === 'user'
+                                                ? 'bg-blue-100 text-blue-800 rounded-br-none'
+                                                : 'bg-purple-100 text-purple-800 rounded-bl-none'
+                                        }">
+                                            ${msg.text}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="mt-4 flex">
+                                <input
+                                    type="text"
+                                    id="aiChatInput"
+                                    class="flex-grow p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-purple-500 focus:border-purple-500 text-sm"
+                                    placeholder="Ask about online safety..."
+                                    value="${aiInput}"
+                                    oninput="aiInput = this.value"
+                                />
+                                <button
+                                    id="sendAiChatMessageBtn"
+                                    class="bg-purple-600 text-white px-5 py-3 rounded-r-lg hover:bg-purple-700 transition-colors"
+                                >
+                                    <i data-lucide="send" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            const aiChatInput = document.getElementById('aiChatInput');
+            const sendAiChatMessageBtn = document.getElementById('sendAiChatMessageBtn');
+            aiChatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') handleAskAI();
+            });
+            sendAiChatMessageBtn.addEventListener('click', handleAskAI);
+            // Scroll to bottom of chat
+            const aiChatMessagesContainer = document.getElementById('aiChatMessagesContainer');
+            aiChatMessagesContainer.scrollTop = aiChatMessagesContainer.scrollHeight;
+        }
+
+        function handleAskAI() {
+            if (aiInput.trim()) {
+                const newUserMessage = { id: aiChatMessages.length + 1, sender: 'user', text: aiInput.trim() };
+                aiChatMessages.push(newUserMessage);
+                aiInput = '';
+                updateUI(); // Update UI to show new message
+
+                const responses = [
+                    "Never share personal information online with strangers! This includes your full name, address, school name, and phone number.",
+                    "Use strong, unique passwords for every account. A strong password combines uppercase and lowercase letters, numbers, and symbols.",
+                    "If something online makes you feel uncomfortable or unsafe, tell a trusted adult immediately – a parent, teacher, or counselor.",
+                    "Be cautious of clicking on suspicious links or downloading unknown files, as they can contain viruses or lead to phishing scams.",
+                    "Remember the golden rule online: treat others how you want to be treated. Cyberbullying is never okay.",
+                    "Before posting anything online, think: Is it kind? Is it true? Is it necessary? Is it helpful? Is it legal?",
+                    "Regularly update your privacy settings on social media and other platforms to control who sees your information.",
+                    "Always log out of accounts when using a shared device to prevent unauthorized access.",
+                    "If you encounter cyberbullying, block the person and report them to the platform or a trusted adult. Do not engage.",
+                    "Verify information from multiple sources before believing or sharing it online. Be aware of fake news."
+                ];
+
+                setTimeout(() => {
+                    const aiResponse = {
+                        id: aiChatMessages.length + 2,
+                        sender: 'ai',
+                        text: responses[Math.floor(Math.random() * responses.length)]
+                    };
+                    aiChatMessages.push(aiResponse);
+                    updateUI(); // Update UI to show AI response
+                }, 1000);
+            }
+        }
+
+        let trainingIntervals = {};
+        function handleStartTraining(moduleKey) {
+            if (studentProgress[moduleKey] < 100) {
+                if (trainingIntervals[moduleKey]) {
+                    clearInterval(trainingIntervals[moduleKey]); // Clear existing interval if restarting
+                }
+                trainingIntervals[moduleKey] = setInterval(() => {
+                    studentProgress[moduleKey] = Math.min(studentProgress[moduleKey] + 10, 100);
+                    if (studentProgress[moduleKey] === 100) {
+                        clearInterval(trainingIntervals[moduleKey]);
+                        delete trainingIntervals[moduleKey]; // Clean up interval reference
+                        alert(`${moduleKey.replace(/([A-Z])/g, ' $1').trim()} training completed! 🎉`);
+                    }
+                    updateUI(); // Re-render to show updated progress
+                }, 300);
+            }
+        }
+
+        function renderCases() {
+            const casesContent = document.getElementById('cases-content');
+            casesContent.innerHTML = `
+                <div class="space-y-8 animate-fadeIn">
+                    <div class="flex flex-col sm:flex-row items-center justify-between mb-6">
+                        <h2 class="text-3xl font-bold text-gray-800 flex items-center mb-4 sm:mb-0">
+                            <i data-lucide="file-text" class="w-8 h-8 mr-3 text-orange-600"></i>
+                            Case Management & Status
+                        </h2>
+                        <div class="flex flex-wrap gap-3">
+                            <button class="px-5 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors text-sm font-medium shadow-md">
+                                All Cases
+                            </button>
+                            <button class="px-5 py-2 bg-yellow-100 text-yellow-800 rounded-full hover:bg-yellow-200 transition-colors text-sm font-medium">
+                                Pending
+                            </button>
+                            <button class="px-5 py-2 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200 transition-colors text-sm font-medium">
+                                In Progress
+                            </button>
+                            <button class="px-5 py-2 bg-green-100 text-green-800 rounded-full hover:bg-green-200 transition-colors text-sm font-medium">
+                                Completed
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">School Name</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Issue Description</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Service Type</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Priority</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Current Status</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Date Submitted</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                ${helpRequests.map(request => `
+                                    <tr class="hover:bg-gray-50 transition-colors">
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <i data-lucide="user" class="w-5 h-5 text-gray-500 mr-3"></i>
+                                                <span class="text-base font-medium text-gray-900">${request.school}</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm text-gray-700 max-w-xs truncate">${request.issue}</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-3 py-1 rounded-full text-xs font-semibold ${
+                                                request.type === 'security' ? 'bg-red-100 text-red-800' :
+                                                request.type === 'counseling' ? 'bg-indigo-100 text-indigo-800' :
+                                                request.type === 'training' ? 'bg-purple-100 text-purple-800' :
+                                                'bg-blue-100 text-blue-800'
+                                            }">
+                                                ${request.type.charAt(0).toUpperCase() + request.type.slice(1)}
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-3 py-1 rounded-full text-xs font-semibold ${
+                                                request.priority === 'urgent' ? 'bg-red-100 text-red-800' :
+                                                request.priority === 'high' ? 'bg-orange-100 text-orange-800' :
+                                                request.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
+                                                'bg-green-100 text-green-800'
+                                            }">
+                                                ${request.priority.toUpperCase()}
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-3 py-1 rounded-full text-xs font-semibold ${
+                                                request.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                                                request.status === 'in-progress' ? 'bg-blue-100 text-blue-800' :
+                                                'bg-green-100 text-green-800'
+                                            }">
+                                                ${request.status.charAt(0).toUpperCase() + request.status.slice(1).replace('-', ' ')}
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            ${request.date}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <button class="text-blue-600 hover:text-blue-900 transition-colors mr-4">View</button>
+                                            <button class="text-purple-600 hover:text-purple-900 transition-colors">Edit</button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize UI on DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', updateUI);
+    </script>
+</body>
+</html>
